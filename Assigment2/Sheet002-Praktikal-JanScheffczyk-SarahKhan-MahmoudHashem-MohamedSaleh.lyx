@@ -1,0 +1,708 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Assignment 2: Neural Networks
+\end_layout
+
+\begin_layout Author
+Jan Scheffczyk - 3242317
+\begin_inset Newline newline
+\end_inset
+
+Sarah Khan - 3279206
+\begin_inset Newline newline
+\end_inset
+
+Mahmoud Hashem - 3201329
+\begin_inset Newline newline
+\end_inset
+
+Mohamed Saleh - 3201337
+\end_layout
+
+\begin_layout Section
+Theoretical exercises 
+\end_layout
+
+\begin_layout Subsection
+Define MLP
+\end_layout
+
+\begin_layout Standard
+First we define the line equations such that points that are on the inside
+ of the shape with respect to the line will receive a value less than 0.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{align*}         
+\backslash
+overline{KP} &= (x-x_1)(y_2-y_1)-(y-y_1)(x_2-x_1)
+\backslash
+
+\backslash
+                     &= (x+2)(-2-2)-(y-2)(-4+2)
+\backslash
+
+\backslash
+                     &= -4x-8+2y-4
+\backslash
+
+\backslash
+                     &= -2x+y-6
+\backslash
+
+\backslash
+     
+\backslash
+end{align*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{align*}         
+\backslash
+overline{KR} &= (x-x_1)(y_2-y_1)-(y-y_1)(x_2-x_1)
+\backslash
+
+\backslash
+                     &= (x+2)(4-2)-(y-2)(2+2)
+\backslash
+
+\backslash
+                     &= x-2y+6
+\backslash
+
+\backslash
+                     &= -x+2y-6     
+\backslash
+end{align*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{align*}         
+\backslash
+overline{RQ} &= (x-x_1)(y_2-y_1)-(y-y_1)(x_2-x_1)
+\backslash
+
+\backslash
+                     &= (x-2)(4-2)-(y+2)(8-2)
+\backslash
+
+\backslash
+                     &= x-3y-14
+\backslash
+
+\backslash
+     
+\backslash
+end{align*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{align*}         
+\backslash
+overline{PQ} &= (x-x_1)(y_2-y_1)-(y-y_1)(x_2-x_1)
+\backslash
+
+\backslash
+                     &= (x+4)(2+2)-(y+2)(8+4)
+\backslash
+
+\backslash
+                     &= x-3y-2
+\backslash
+
+\backslash
+     
+\backslash
+end{align*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Then be can define a nonlinear activation function for the hidden neurons
+ as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma(x)\begin{cases}
+\begin{matrix}1\end{matrix} & ,\forall x|x\geqq0\\
+0 & ,\forall x|x<0
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Thus we get 4 hidden neurons:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{align*}         h_1 &=
+\backslash
+sigma(-2x+y-6)
+\backslash
+
+\backslash
+         h_2 &=
+\backslash
+sigma(-x+2y-6)
+\backslash
+
+\backslash
+         h_3 &=
+\backslash
+sigma(x-3y-14)
+\backslash
+
+\backslash
+         h_4 &=
+\backslash
+sigma(x-3y-2)
+\backslash
+
+\backslash
+     
+\backslash
+end{align*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+And a single output neuron:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{align*}         o &=
+\backslash
+sigma( 
+\backslash
+sum_{i=1}^{4} h_i)
+\backslash
+
+\backslash
+     
+\backslash
+end{align*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which will output 
+\begin_inset Formula $0$
+\end_inset
+
+ the input is within the shape.
+\end_layout
+
+\begin_layout Subsection
+Compute MLP
+\end_layout
+
+\begin_layout Standard
+Compute the weigthed sum for the hidden neurons:
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{alignat*}{2}     net_{h1} &= 
+\backslash
+sum_{n=1}^{N} w_{nh_1} 
+\backslash
+cdot x_n + w_{b_1} 
+\backslash
+cdot 1 
+\backslash
+
+\backslash
+     &= w_1 
+\backslash
+cdot x_1 + w_2 
+\backslash
+cdot x_2 + w_{b_1} 
+\backslash
+
+\backslash
+     &= 0.1 
+\backslash
+cdot 0.1 + 0.2 
+\backslash
+cdot 0.4 + 0.3 
+\backslash
+
+\backslash
+     &= 0.39 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{alignat*}{2}     net_{h2} &= 
+\backslash
+sum_{n=1}^{N} w_{nh_2} 
+\backslash
+cdot x_n + w_{b_1} 
+\backslash
+cdot 1 
+\backslash
+
+\backslash
+     &= w_3 
+\backslash
+cdot x_1 + w_4 
+\backslash
+cdot x_2 + w_{b_1} 
+\backslash
+
+\backslash
+     &= 0.2 
+\backslash
+cdot 0.1 + 0.3 
+\backslash
+cdot 0.4 + 0.3 
+\backslash
+
+\backslash
+     &= 0.44 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Apply the activation function to hidden neurons, in this case logisitc sigmoid:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{alignat*}{2}         out_{h1} &= 
+\backslash
+sigma(net_{h1}) = 
+\backslash
+frac{1}{1 + 
+\backslash
+exp ^{-0.39}} = 0.596 	
+\backslash
+end{alignat*} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{alignat*}{2}         out_{h2} &= 
+\backslash
+sigma(net_{h2}) = 
+\backslash
+frac{1}{1 + 
+\backslash
+exp ^{-0.44}} = 0.608 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Compute the weigthed sum for the output neurons:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{alignat*}{2}         net_{o1} &= 
+\backslash
+sum_{h=1}^{H} w_{ho_1} 
+\backslash
+cdot out_{h} + w_{b_2} 
+\backslash
+cdot 1 
+\backslash
+
+\backslash
+         &= w_7 
+\backslash
+cdot out_{h_1} + w_8 
+\backslash
+cdot out_{h_2} + w_{b_2} 
+\backslash
+
+\backslash
+         &= 0.5 
+\backslash
+cdot 0.596 + 0.6 
+\backslash
+cdot 0.608 + 0.6 
+\backslash
+
+\backslash
+         &= 1.263 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{alignat*}{2}         net_{o2} &= 
+\backslash
+sum_{h=1}^{H} w_{ho_1} 
+\backslash
+cdot out_{h} + w_{b_2} 
+\backslash
+cdot 1 
+\backslash
+
+\backslash
+         &= w_7 
+\backslash
+cdot out_{h_1} + w_8 
+\backslash
+cdot out_{h_2} + w_{b_2} 
+\backslash
+
+\backslash
+         &= 0.5 
+\backslash
+cdot 0.596 + 0.6 
+\backslash
+cdot 0.608 + 0.6 
+\backslash
+
+\backslash
+         &= 1.263 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Apply the activation function to output neurons:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{alignat*}{2}         out_{o1} &= 
+\backslash
+sigma(net_{o1}) = 
+\backslash
+frac{1}{1 + 
+\backslash
+exp ^{-1.142}} = 0.758 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{alignat*}{2}         out_{o2} &= 
+\backslash
+sigma(net_{o2}) = 
+\backslash
+frac{1}{1 + 
+\backslash
+exp ^{-1.263}} = 0.780 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Finally we can compare, using mse, the calculated output to the real output
+ to compute the error:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+begin{alignat*}{2}         E_{total} &= 
+\backslash
+frac{1}{n} 
+\backslash
+cdot 
+\backslash
+sum_{i=1}^{N}(
+\backslash
+hat{Y_i} - Y_i)^2
+\backslash
+
+\backslash
+             &= 
+\backslash
+frac{1}{2} 
+\backslash
+cdot 
+\backslash
+Big( E_{o_1} + E_{o_2} 
+\backslash
+Big)
+\backslash
+
+\backslash
+             &= 
+\backslash
+frac{1}{2} 
+\backslash
+cdot 
+\backslash
+Big( (0.1 - 0.758)^2 + (0.9 - 0.780)^2 
+\backslash
+Big)
+\backslash
+
+\backslash
+             &= 
+\backslash
+frac{1}{2} 
+\backslash
+cdot (0.433 + 0.014)
+\backslash
+
+\backslash
+             &= 0.224 	
+\backslash
+end{alignat*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

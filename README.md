@@ -1,1 +1,3 @@
-# Deep-Learning-Assignments
+# Deep Learning for Visual Recognition
+
+Assignment solutions 

@@ -1,0 +1,226 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Assignment 1: Machine learning basics
+\end_layout
+
+\begin_layout Author
+Jan Scheffczyk - 3242317
+\begin_inset Newline newline
+\end_inset
+
+Sarah Khan - 3279206
+\begin_inset Newline newline
+\end_inset
+
+Mahmoud Hashem - 3201329
+\begin_inset Newline newline
+\end_inset
+
+Mohamed Saleh - 3201337
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Theoretical exercises
+\end_layout
+
+\begin_layout Subsection
+Compute bias of estimators
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathrm{Bias\left(\hat{\sigma}_{m}^{2}\right)=} & E\left[\frac{1}{m}\stackrel[i=1]{m}{\sum}\left(x^{\left(i\right)}-\hat{\mu_{m}}\right)^{2}\right]-\sigma^{2}\\
+= & \frac{1}{m}\left(m-1\right)\sigma^{2}-\sigma^{2}\\
+= & \left(\frac{1}{m}\left(m-1\right)-1\right)\sigma^{2}\\
+= & -\frac{1}{m}\sigma^{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The estimates are of the variance 
+\begin_inset Formula $\hat{\sigma}_{m}^{2}$
+\end_inset
+
+ is biased.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathrm{Bias\left(\tilde{\sigma}_{m}^{2}\right)=} & \mathit{E}\left[\frac{1}{m-1}\stackrel[i=1]{m}{\sum}\left(x^{(i)}-\hat{\mu}_{m}\right)^{2}\right]\\
+= & \frac{1}{m-1}(m-1)\sigma^{2}-\sigma^{2}\\
+= & 0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The estimates are of the variance 
+\begin_inset Formula $\tilde{\sigma}_{m}^{2}$
+\end_inset
+
+ is unbiased.
+\end_layout
+
+\begin_layout Subsection
+Bias Variance Trade-off
+\end_layout
+
+\begin_layout Paragraph
+Show that 
+\begin_inset Formula $\mathrm{MSE=\mathrm{Bias^{2}+\mathrm{Var}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathrm{Bias^{2}\left(\hat{\theta}_{m}\right)=} & \mathit{\left(E\left[\hat{\theta}_{m}\right]-\theta\right)}^{2}\\
+= & \mathit{E^{\mathrm{2}}\left[\hat{\theta}_{m}\right]-\mathrm{2}\mathit{E}\left[\hat{\theta}\right]}\theta+\theta^{2}\\
+\mathrm{Var\left(\hat{\theta}_{m}\right)=} & \mathit{E\left[\hat{\theta}_{m}^{2}\right]-\mathit{E^{\mathrm{2}}\left[\hat{\theta}_{m}\right]}}\\
+\mathrm{MSE\left(\hat{\theta}_{m}\right)=} & \mathit{E^{\mathrm{}}\left[\left(\hat{\theta}_{m}-\theta\right)^{2}\right]}\\
+= & \mathit{E^{\mathrm{}}\left[\hat{\theta}_{m}^{2}\right]}-2\mathit{E\left[\hat{\theta}_{m}\right]}\theta+\theta^{2}\\
+= & \mathit{E^{\mathrm{}}\left[\hat{\theta}_{m}^{2}\right]}-2\mathit{E\left[\hat{\theta}_{m}\right]}\theta+\theta^{2}+\left(E\left[\hat{\theta}_{m}\right]-\mathit{E^{\mathrm{2}}\left[\hat{\theta}_{m}\right]}\right)\\
+= & \underbrace{E^{\mathrm{2}}\left[\hat{\theta}_{m}\right]-2\mathit{E\left[\hat{\theta}_{m}\right]}\theta+\theta^{2}}_{\mathrm{Bias^{2}}}+\underbrace{E\left[\hat{\theta}_{m}^{2}\right]-\mathit{E^{\mathrm{2}}\left[\hat{\theta}_{m}\right]}}_{\mathrm{Var}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Maximum a posteriori
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P\left(\theta|x,y\right)=\frac{P\left(y|x,\theta\right)P\left(\theta|x\right)}{P\left(x\right)}\propto P\left(y|x,\theta\right)P\left(\theta|x\right)
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Since 
+\begin_inset Formula $\theta$
+\end_inset
+
+ this independent of 
+\begin_inset Formula $x$
+\end_inset
+
+ this is equivalent to 
+\begin_inset Formula $P\left(y|x,\theta\right)P\left(\theta\right)$
+\end_inset
+
+.
+ Thus we get the maximum a posteriori approximation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\theta_{\mathrm{MAP}}=\underset{\theta}{\mathrm{argmax}}\left[\stackrel[i=1]{m}{\sum}\log\left(P\left(y^{\left(i\right)}|x^{\left(i\right)},\mathbf{\mathbf{\theta}}\right)+\log\left(P\left(\mathbf{\mathbf{\theta}}\right)\right)\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

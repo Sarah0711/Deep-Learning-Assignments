@@ -1,0 +1,279 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Assignment 1: Machine learning basics
+\end_layout
+
+\begin_layout Author
+Jan Scheffczyk - 3242317
+\begin_inset Newline newline
+\end_inset
+
+Sarah Khan - 3279206
+\begin_inset Newline newline
+\end_inset
+
+Mahmoud Hashem - 3201329
+\begin_inset Newline newline
+\end_inset
+
+Mohamed Saleh - 3201337
+\end_layout
+
+\begin_layout Section
+Linear Classifier with Logistic Function
+\end_layout
+
+\begin_layout Standard
+Let
+\begin_inset Formula 
+\begin{align*}
+W\quad & \mathrm{weights}\in\mathcal{\mathbb{R}}^{D}\\
+X\quad & \mathrm{inputs}\in\mathbb{\mathcal{\mathbb{R}}}^{N\times D}\\
+b\quad & \mathrm{bias}\in\mathbb{R}\\
+y\quad & \mathrm{labels}\in\mathbb{B}^{N}\\
+h\left(x_{i},W,b\right) & =\quad\sigma\left(Wx_{i}+b\right)\\
+\sigma\left(a\right)= & \quad\frac{1}{1+\exp\left(-a\right)}\\
+k= & \quad Wx_{i}+b
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\frac{\partial}{\partial w}L\left(w,b\right)\quad & =\frac{\partial}{\partial w}\stackrel[i=1]{N}{\sum}\left(y_{i}-h\left(x_{i},W,b\right)\right)^{2}\\
+ & =\stackrel[i=1]{N}{\sum}2\left(y_{i}-\sigma\left(k\right)\right)\left(-\right)\frac{\partial}{\partial w}\sigma\left(k\right) & \text{}\\
+ & \stackrel[i=1]{N}{=\sum}2\left(y_{i}-\sigma\left(k\right)\right)\left(-\right)\left(\sigma\left(k\right)\right)\left(1-\sigma\left(k\right)\right)\frac{\partial}{\partial w}k & \mathrm{using}\eqref{sigmoid}\\
+ & \stackrel[i=1]{N}{=\sum}2\left(y_{i}-\sigma\left(k\right)\right)\left(-\right)\left(\sigma\left(k\right)\right)\left(1-\sigma\left(k\right)\right)x_{i}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\frac{\partial}{\partial b}L\left(w,b\right)\quad & =\frac{\partial}{\partial b}\stackrel[i=1]{N}{\sum}\left(y_{i}-h\left(x_{i},W,b\right)\right)^{2}\\
+ & =\stackrel[i=1]{N}{\sum}2\left(y_{i}-\sigma\left(k\right)\right)\left(-\right)\frac{\partial}{\partial b}\sigma\left(k\right) & \text{}\\
+ & \stackrel[i=1]{N}{=\sum}2\left(y_{i}-\sigma\left(k\right)\right)\left(-\right)\left(\sigma\left(k\right)\right)\left(1-\sigma\left(k\right)\right)\frac{\partial}{\partial b}k & \mathrm{using}\eqref{sigmoid}\\
+ & \stackrel[i=1]{N}{=\sum}2\left(y_{i}-\sigma\left(k\right)\right)\left(-\right)\left(\sigma\left(k\right)\right)\left(1-\sigma\left(k\right)\right)\left(1\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{align} 
+\backslash
+begin{split}
+\backslash
+dfrac{d}{dx} 
+\backslash
+sigma(x) &= 
+\backslash
+dfrac{d}{dx} 
+\backslash
+left[ 
+\backslash
+dfrac{1}{1 + e^{-x}} 
+\backslash
+right] 
+\backslash
+
+\backslash
+ &= 
+\backslash
+dfrac{d}{dx} 
+\backslash
+left( 1 + 
+\backslash
+mathrm{e}^{-x} 
+\backslash
+right)^{-1} 
+\backslash
+
+\backslash
+ &= -(1 + e^{-x})^{-2}(-e^{-x}) 
+\backslash
+
+\backslash
+ &= 
+\backslash
+dfrac{e^{-x}}{
+\backslash
+left(1 + e^{-x}
+\backslash
+right)^2} 
+\backslash
+
+\backslash
+ &= 
+\backslash
+dfrac{1}{1 + e^{-x}
+\backslash
+ } 
+\backslash
+cdot 
+\backslash
+dfrac{e^{-x}}{1 + e^{-x}}  
+\backslash
+
+\backslash
+ &= 
+\backslash
+dfrac{1}{1 + e^{-x}
+\backslash
+ } 
+\backslash
+cdot 
+\backslash
+dfrac{(1 + e^{-x}) - 1}{1 + e^{-x}}  
+\backslash
+
+\backslash
+ &= 
+\backslash
+dfrac{1}{1 + e^{-x}
+\backslash
+ } 
+\backslash
+cdot 
+\backslash
+left( 
+\backslash
+dfrac{1 + e^{-x}}{1 + e^{-x}} - 
+\backslash
+dfrac{1}{1 + e^{-x}} 
+\backslash
+right) 
+\backslash
+
+\backslash
+ &= 
+\backslash
+dfrac{1}{1 + e^{-x}
+\backslash
+ } 
+\backslash
+cdot 
+\backslash
+left( 1 - 
+\backslash
+dfrac{1}{1 + e^{-x}} 
+\backslash
+right) 
+\backslash
+
+\backslash
+ &= 
+\backslash
+sigma(x) 
+\backslash
+cdot (1 - 
+\backslash
+sigma(x)) 
+\backslash
+label{sigmoid}
+\backslash
+end{split}
+\backslash
+end{align}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,7 @@
+*.pyrc
+*.txt
+.idea/
+*.lyx~
+*.emergency*
+*#*#
+*__pycache__

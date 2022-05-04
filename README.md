@@ -19,7 +19,7 @@ python3 train.py  --dataset_path <path-to-dataset> \
 ```
 
 <p align="center">
-    <img src="assets/celeba_mosaic.gif" width="400"\>
+    <img src="Stylization_Project/assets/celeba_mosaic.gif" width="400"\>
 </p>
 <p align="center">
     Figure: Training progress over the first 10,000 batches.
@@ -33,7 +33,7 @@ python3 test_on_video.py  --video_path <path-to-video> \
 ```
 
 <p align="center">
-    <img src="assets/stylized-celtics.gif" width="400"\>
+    <img src="Stylization_Project/assets/stylized-celtics.gif" width="400"\>
 </p>
 
 ## Test on Image
